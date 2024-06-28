@@ -1,0 +1,711 @@
+<html><head><title>결제 시스템</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body class="pdf ko-KR" lang="ko-KR"><article id="4e475e51-fa2b-46d1-bcb9-a2021f15aad9" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">1️⃣</span></div><h1 class="page-title">결제 시스템</h1><p class="page-description"></p></header><div class="page-body"><h1 id="58484099-49b0-408d-907e-1160f229ff24" class="">문제 이해 및 설계 범위 확정</h1><p id="56e5b46c-6fbb-42d6-ad85-833efaf47a1d" class=""><strong>기능 요구사항</strong></p><ul id="106ca062-2e22-4a4e-9935-c42eaf2e0a08" class="bulleted-list"><li style="list-style-type:disc">대금 수신 흐름<ul id="72d88e61-3418-475d-a644-fdb00e44cc42" class="bulleted-list"><li style="list-style-type:circle">결제 시스템이 판매자를 대신하여 고객으로부터 대금을 수령함</li></ul></li></ul><ul id="adeeddbe-c0db-4709-ab4f-a6159478ce53" class="bulleted-list"><li style="list-style-type:disc">대금 정산 흐름<ul id="25813b05-6232-40cb-9cee-131632b4c615" class="bulleted-list"><li style="list-style-type:circle">결제 시스템이 전세계의 판매자에게 제품 판매 대금을 송금함</li></ul></li></ul><p id="77f00a95-d675-4711-bf5f-52d3936da4d3" class="">
+</p><p id="811819cf-fd36-4953-b534-19cb486bca78" class=""><strong>비기능 요구사항</strong></p><ul id="0aa0ac86-fee8-4274-b9e2-b24d27a4ff9b" class="bulleted-list"><li style="list-style-type:disc">신뢰성 및 내결함성<ul id="d665cef6-f1e2-4f6c-903a-134e56365c9f" class="bulleted-list"><li style="list-style-type:circle">결제 실패는 신중하게 처리해야 함</li></ul></li></ul><ul id="ff7ff69b-362d-43f3-aeed-91137e7f9cd9" class="bulleted-list"><li style="list-style-type:disc">내부 서비스와 외부 서비스 간의 조정 프로세스<ul id="8809e9fa-0bf7-4958-ba7a-f28e0db0cb70" class="bulleted-list"><li style="list-style-type:circle">시스템 간의 결제 정보가 일치하는지 비동기적으로 확인함</li></ul><ul id="311a4f29-d1ca-401b-8224-07c64dd1b670" class="bulleted-list"><li style="list-style-type:circle">내부 서비스: 결제 시스템, 회계 시스템</li></ul><ul id="6ff509c6-8926-4e11-bd16-7fa53c0959cb" class="bulleted-list"><li style="list-style-type:circle">외부 서비스: 결제 서비스 제공업체</li></ul></li></ul><p id="b20bc919-f507-47e1-828e-b64f640d1a11" class="">
+</p><p id="4cf59822-0215-46f3-b0ba-3b12e38fc692" class="">개략적인 규모 추정</p><ul id="fc782766-fbe1-419d-ada8-1b92f57cd17e" class="bulleted-list"><li style="list-style-type:disc">하루에 100만 건의 트랙잭션을 처리해야 함</li></ul><ul id="5d1a6fe8-7ef4-4d18-b0d1-4df0390f56de" class="bulleted-list"><li style="list-style-type:disc">100만 건의 트랜잭션 / 10^5 = 초당 10건의 TPS</li></ul><ul id="717d9d54-f44c-4790-9851-0a55021a4d49" class="bulleted-list"><li style="list-style-type:disc">일반적인 데이터베이스로 문제 없이 처리 가능함</li></ul><ul id="6a71dbcb-7ced-4024-87d3-5015077b398b" class="bulleted-list"><li style="list-style-type:disc">처리 대역폭 대신 <mark class="highlight-red">결제 트랜잭션의 정확한 처리에 초점을 맞춰</mark> 면접 진행하기</li></ul><p id="1a15e62e-2f38-4452-a04d-7d8ad5eaa53b" class="">
+</p><h1 id="48bf9f7a-2030-4094-9644-b0c988eb302c" class="">개략적 설계안 제시 및 동의 구하기</h1><h2 id="d98279cd-af46-4961-8fae-e8d811611329" class="">대금 수신 흐름</h2><p id="d36c7dde-7ebb-47f6-bb27-f249b1ae5f20" class=""><strong>결제 서비스</strong></p><ul id="bdfdaea2-f033-4b57-b95d-4ff0ba2f1c7a" class="bulleted-list"><li style="list-style-type:disc">사용자로부터 결제 이벤트를 수락하고 결제 프로세스를 조율함</li></ul><ul id="7a8460b8-6e7c-46cc-9431-b9cd95783046" class="bulleted-list"><li style="list-style-type:disc">일반적으로 AML/CFT와 같은 규정을 준수하는지, 자금 세탁이나 테러 자금 조달과 같은 범죄 행위의 증거가 있는지 평가하는 위험 점검을 가장 먼저 함<ul id="058b2870-0ad4-45e6-930a-45cba541ebee" class="bulleted-list"><li style="list-style-type:circle">복잡하고 고도로 전문화되어 있기 때문에 제3자 제공업체를 이용함</li></ul></li></ul><p id="97c5dd75-c313-4044-a50f-59f9c0c383c7" class="">
+</p><p id="5686d733-27bc-4532-a043-8d0b1156c9ec" class=""><strong>결제 실행자</strong></p><ul id="5120e7e3-a9c0-4b45-85c6-6baae364fadd" class="bulleted-list"><li style="list-style-type:disc">결제 서비스 공급자(PSP)를 통해 결제 주문 하나를 실행함</li></ul><ul id="cca44ca3-5a08-421f-9721-49c10908b7ef" class="bulleted-list"><li style="list-style-type:disc">하나의 결제 이벤트에는 여러 결제 주문이 포함될 수 있음</li></ul><p id="edf030c3-bb9d-4f16-b675-e4fae0982796" class="">
+</p><p id="5de8f411-f027-4e80-9a0d-d6c09ec96cd2" class=""><strong>결제 서비스 공급자</strong></p><ul id="b1ddfe68-e579-4a55-8b2a-3c2effc08108" class="bulleted-list"><li style="list-style-type:disc">Payment Service Provider</li></ul><ul id="4aa742b6-feb5-4975-afac-83cf6bc5ed4a" class="bulleted-list"><li style="list-style-type:disc">A 계정에서 B 계정으로 돈을 옮기는 역할을 담당<ul id="bc74b621-133b-40f1-a2f9-0f102a6a246a" class="bulleted-list"><li style="list-style-type:circle">본 설계안에서는 구매자의 신용 카드 계좌에서 돈을 인출하는 역할</li></ul></li></ul><p id="60826175-be27-47e5-8bb3-ff15bdbd2591" class="">
+</p><p id="e0875320-5468-49ed-bdf7-e1a480219d55" class=""><strong>카드 유형</strong></p><ul id="741e6ce1-c6d4-4911-8fc5-114ca71aa71b" class="bulleted-list"><li style="list-style-type:disc">카드사: 신용 카드 업무를 처리하는 조직</li></ul><ul id="498a3771-c412-4728-b328-2a0e2e443d6d" class="bulleted-list"><li style="list-style-type:disc">카드 생태계는 매우 복잡함</li></ul><p id="bd55e642-9af7-459d-a429-421088cd790d" class="">
+</p><p id="a89ca9a7-3c2d-411b-9894-9a52c9f8c823" class=""><strong>원장</strong></p><ul id="42b24419-3088-43ec-a07f-a848e0b86e31" class="bulleted-list"><li style="list-style-type:disc">결제 트랜잭션에 대한 금융 기록</li></ul><ul id="80262dc8-f8cc-496f-9764-659756c9031d" class="bulleted-list"><li style="list-style-type:disc">결제 후 분석에서 매우 중요한 역할<ul id="6243a19c-9f19-4e50-a4aa-0c2c884e6430" class="bulleted-list"><li style="list-style-type:circle">전자상거래 웹사이트의 총 수익을 계산하거나 향후 수익을 예측</li></ul></li></ul><p id="a1b6ac40-34ce-44f9-822a-7232e1782220" class="">
+</p><p id="a48991cb-8b37-4287-b0f6-3b22344cb3f3" class=""><strong>지갑</strong></p><ul id="02db6384-31e6-4ff5-b391-6e0bd8f087c3" class="bulleted-list"><li style="list-style-type:disc">판매자의 계정 잔액을 기록함</li></ul><ul id="51b667ae-9ee7-4547-bdb8-85bf44065657" class="bulleted-list"><li style="list-style-type:disc">특정 사용자가 결제한 총 금액을 기록할 수도 있음</li></ul><p id="6b095e5b-b635-4f6d-aa70-c121c3cd9e9f" class="">
+</p><p id="866b23b2-4a18-4a84-99b1-f0e655de14b8" class=""><strong>결제 흐름</strong></p><ol type="1" id="dffc4785-b8bd-45ef-97b9-37d0ad604bc7" class="numbered-list" start="1"><li>사용자가 “주문하기” 버튼을 클릭하면 결제 이벤트가 생성되어 결제 서비스로 전송</li></ol><ol type="1" id="e3a3e3dd-dcfe-4f19-b3ef-49cd598a4705" class="numbered-list" start="2"><li>결제 서비스는 결제 이벤트를 데이터베이스에 저장</li></ol><ol type="1" id="78238d69-0a37-437a-94e6-0f699c4d42fb" class="numbered-list" start="3"><li>단일 결제 이벤트에 여러 결제 주문이 포함될 수 있음<ul id="c93b947f-f2bc-40a2-a9ac-c0d977aa649e" class="bulleted-list"><li style="list-style-type:disc">한 번 결제로 여러 판매자의 제품을 처리하는 경우</li></ul><ul id="c71dc0c5-0215-498a-8560-849c8528a2d3" class="bulleted-list"><li style="list-style-type:disc">전자상거래 웹사이트에서 한 결제를 여러 결제 주문으로 분할하는 경우</li></ul><ul id="c83a7c57-3fec-465a-b6eb-362c49e75f28" class="bulleted-list"><li style="list-style-type:disc">결제 서비스는 결제 주문마다 결제 실행자를 호출함</li></ul></li></ol><ol type="1" id="eadaf524-fcdd-492b-a419-db779a2b8912" class="numbered-list" start="4"><li>결제 실행자는 결제 주문을 데이터베이스에 저장</li></ol><ol type="1" id="b38792a9-acd5-4633-a2ab-570dc4798d90" class="numbered-list" start="5"><li>결제 실행자가 외부 PSP를 호출하여 신용 카드 결제를 처리</li></ol><ol type="1" id="a83c5ff8-5184-40b3-8fbc-c4bffe76758b" class="numbered-list" start="6"><li>결제 실행자가 결제를 성공적으로 처리하면 결제 서비스는 지갑을 갱신하여 특정 판매자의 잔고를 기록</li></ol><ol type="1" id="c7e9af75-b075-491a-9b01-6cb34f98d3c5" class="numbered-list" start="7"><li>지갑 서버는 갱신된 잔고 정보를 데이터베이스에 저장</li></ol><ol type="1" id="57758c68-b928-44e6-bee4-558b3313f9c5" class="numbered-list" start="8"><li>지갑 서비스가 판매자 잔고를 성공적으로 갱신하면 결제 서비스는 원장을 호출</li></ol><ol type="1" id="45f99bd0-2538-4cc6-bded-d5deea8229a9" class="numbered-list" start="9"><li>원장 서비스는 새 원장 정보를 데이터베이스에 추가함</li></ol><p id="8a5b33ee-4a73-40e7-9690-93c9c37290c9" class="">
+</p><h2 id="9a0ee39a-ed60-4f0d-aeb7-2c8382cf5f41" class="">결제 서비스 API</h2><table id="b418604a-403a-4d0b-b437-f093e87493fc" class="simple-table"><tbody><tr id="8c0497f8-cffa-4e32-a3b5-d573d50cd207"><td id="dCAZ" class="" style="width:55.890625px">POST</td><td id="Ywrz" class="" style="width:150.03125px">/v1/payments</td><td id="&lt;lnv" class="" style="width:393.0625px">결제 이벤트를 실행함<br/>하나의 결제 이벤트에는 여러 결제 주문이 포함될 수 있음<br/></td><td id="sg|:" class="" style="width:367.0625px">요청 매개변수<br/>{<br/>   ”buyer_info”:”구매자 정보”,<br/>   ”checkout_id”:”해당 결제 이벤트를 식별하는 고유 ID”,<br/>   ”credit_card_info”:”카드 정보/PSP마다 다른 값”,<br/>   ”payment_orders”: {<br/>      // 결제 주문 목록<br/>      ”seller_account”:”대금을 수령할 판매자”,<br/>      ”amount”:”금액”,<br/>      ”currency”:”통화 단위”,<br/>      ”payment_order_id”,”주문을 식별하는 고유 ID”<br/>   }<br/>}<br/></td></tr><tr id="11a50207-a86e-464c-9e35-c748e845c907"><td id="dCAZ" class="" style="width:55.890625px">GET</td><td id="Ywrz" class="" style="width:150.03125px">/v1/payments/{:id}</td><td id="&lt;lnv" class="" style="width:393.0625px">payment_order_id가 가리키는 단일 결제 주문의 실행 상태를 반환</td><td id="sg|:" class="" style="width:367.0625px"></td></tr></tbody></table><ul id="42792dd3-25a4-4d54-b638-5f7dac55c652" class="bulleted-list"><li style="list-style-type:disc">금액(amount) 필드가 문자열인 이유<ul id="0cf72aca-b596-4cac-b8ec-6f67a168903c" class="bulleted-list"><li style="list-style-type:circle">프로토콜, 소프트웨어, 하드웨어에 따라 직렬화/역직렬화에 사용하는 숫자 정밀도가 다를 수 있는데 이러한 차이가 의도치 않은 반올림 오류를 유발</li></ul><ul id="09e0a739-2b85-4e8e-b1e8-adfef17ea9c5" class="bulleted-list"><li style="list-style-type:circle">숫자가 매우 클 수도, 작을 수도 있음</li></ul></li></ul><p id="1ddc6bbe-cb4e-473e-8cd4-3c288216e52b" class="">
+</p><h2 id="2c84803d-6c67-40b4-8888-1543b1863745" class="">결제 서비스 데이터 모델</h2><ul id="e9cf487b-1195-47a9-8a03-0f1fa7451ba0" class="bulleted-list"><li style="list-style-type:disc">결제 시스템용 저장소 솔루션을 고를 때 중점을 둬야 할 이슈<ul id="18b19eea-2112-4e15-99b9-2770940e7843" class="bulleted-list"><li style="list-style-type:circle">안정성이 검증되었는가?<ul id="519784e9-fba9-4fb2-b9f3-e5a075ed95ac" class="bulleted-list"><li style="list-style-type:square">다른 대형 금융 회사에서 수년동안 긍정적인 피드백을 받으면 사용되었는지</li></ul></li></ul><ul id="906e1bba-87de-4dd9-aa7f-d2a2cef10b4d" class="bulleted-list"><li style="list-style-type:circle">모니터링 및 데이터 탐사에 필요한 도구가 풍부하게 지원되는가?</li></ul><ul id="8eb14417-dbc3-4796-9403-6d8a9d49678a" class="bulleted-list"><li style="list-style-type:circle">데이터베이스 관리자 채용 시장이 성숙했는가?<ul id="e46bf4c3-1a9f-4f68-bf57-5c8603b3c01f" class="bulleted-list"><li style="list-style-type:square">DBA를 쉽게 채용할 수 있는지</li></ul></li></ul></li></ul><ul id="8051d972-95d1-4d84-9268-de6f55a8f5ab" class="bulleted-list"><li style="list-style-type:disc">일반적으로 NoSQL/NewSQL보다는 ACID 트랜잭션을 지원하는 전통적인 관계형 데이터베이스를 선호</li></ul><p id="1418f9ad-8ce5-4369-bad0-34bc2f06d38d" class="">
+</p><div id="29d336ea-0176-49b0-b940-864b28fe7f85" class="column-list"><div id="884f9748-d282-4319-9361-476e54e6184e" style="width:50%" class="column"><table id="da88c9d5-323b-477e-9b14-667cf52aad9c" class="simple-table"><thead class="simple-table-header"><tr id="c4da089f-cdad-4955-9548-aff0b135f773"><th id="v?Qv" class="simple-table-header-color simple-table-header">결제 이벤트</th><th id="XI{c" class="simple-table-header-color simple-table-header"></th></tr></thead><tbody><tr id="85c05fba-fa0c-4841-8536-758f2e957997"><td id="v?Qv" class="">checkout_id</td><td id="XI{c" class="">string PK</td></tr><tr id="baa3e74f-fe1d-41fc-8afc-8a64612dbbb3"><td id="v?Qv" class="">buyer_info</td><td id="XI{c" class="">string</td></tr><tr id="c1164181-f263-4b70-b2b8-f8503c636181"><td id="v?Qv" class="">seller_info</td><td id="XI{c" class="">string</td></tr><tr id="bc71d369-ac03-4795-b6cc-7ef4e4845935"><td id="v?Qv" class="">credit_card_info</td><td id="XI{c" class="">카드 제공업체에 따라 다름</td></tr><tr id="74372d63-8d2f-4a55-8460-81c56ffe222b"><td id="v?Qv" class="">is_payment_done</td><td id="XI{c" class="">boolean</td></tr></tbody></table><p id="f5bcd1e8-fbfe-4732-b0a1-afd1557af26e" class="">
+</p><p id="8eadd605-07d0-4b0e-951e-cc5e4c4468a5" class="">
+</p><ol type="1" id="ad1334f8-8d2e-497c-bd39-7dba944f14b7" class="numbered-list" start="1"><li>payment_order_status가 SUCCESS로 변경되면 결제 서비스는 지갑 서비스를 호출하여 판매자 잔액을 업데이트하고 wallet_updated 필드 값은 TRUE로 변경</li></ol><ol type="1" id="b2f8bc7f-2af7-41d5-a1ac-2532d0b29912" class="numbered-list" start="2"><li>위 절차가 끝나면 원장 서비스를 호출하여 ledger_updated 필드 값을 TRUE로 변경</li></ol><ol type="1" id="260f412f-ae7d-458e-bc90-298132e01a41" class="numbered-list" start="3"><li>동일한 checkout_id 아래의 모든 결제 주문이 성공적으로 처리가 되면 is_payment_done 필드 값을 TRUE로 변경</li></ol><ol type="1" id="a046c842-1098-42d4-b424-ed394dc4c622" class="numbered-list" start="4"><li>일반적으로 종결되지 않은 결제 주문을 모니터링 하기 위한 스케쥴링 작업을 마련해 둠</li></ol></div><div id="ad69f8ab-26b2-4cff-b2d1-2b784ca72ab5" style="width:50%" class="column"><table id="d3101aa7-f2e1-4097-8a3b-1f81e3e0b153" class="simple-table"><thead class="simple-table-header"><tr id="16388cca-d0eb-490d-9767-7a026ec32260"><th id="v?Qv" class="simple-table-header-color simple-table-header">결제 주문</th><th id="XI{c" class="simple-table-header-color simple-table-header"></th></tr></thead><tbody><tr id="4ea4d57f-f12b-4219-bbf2-e63888aad12a"><td id="v?Qv" class="">payment_order_id</td><td id="XI{c" class="">string PK</td></tr><tr id="32349495-cf63-4400-893f-49d5b8b8f16c"><td id="v?Qv" class="">buyer_account</td><td id="XI{c" class="">string</td></tr><tr id="06740446-1411-42b1-9721-0c8e4b132406"><td id="v?Qv" class="">amount</td><td id="XI{c" class="">string</td></tr><tr id="93d9258b-8ec9-481d-9bc9-b4482b2e6232"><td id="v?Qv" class="">currency</td><td id="XI{c" class="">string FK</td></tr><tr id="2e68fb9d-8100-4c22-9c89-988e3125a7d2"><td id="v?Qv" class="">checkout_id</td><td id="XI{c" class="">string</td></tr><tr id="42fe4b09-4912-47ac-bedc-f787db8c5bcf"><td id="v?Qv" class="">payment_order_status</td><td id="XI{c" class="">string</td></tr><tr id="a00abd06-d871-40ba-b3ee-c324fde956dd"><td id="v?Qv" class="">ledger_updated</td><td id="XI{c" class="">boolean</td></tr><tr id="a30c51de-8e49-4283-994b-0804721c5f93"><td id="v?Qv" class="">wallet_updated</td><td id="XI{c" class="">boolean</td></tr></tbody></table><ul id="a50dd81e-284f-4197-b3a9-0772ba5dd937" class="bulleted-list"><li style="list-style-type:disc">chekout_id는 외래키<ul id="cd35e376-b9b0-4e59-b28a-df425895283c" class="bulleted-list"><li style="list-style-type:circle">한번의 결제 행위는 하나의 결제 이벤트를 만듦</li></ul><ul id="4ae3e56c-9c89-482a-b198-693d7776a58f" class="bulleted-list"><li style="list-style-type:circle">하나의 결제 이벤트에는 여러 개의 결제 주문이 포함될 수 있음</li></ul></li></ul><ul id="214c8e64-459a-4982-a1a3-31cd5c709a20" class="bulleted-list"><li style="list-style-type:disc">대금 수신<ul id="cc7de56f-77a7-4ca3-b4f4-0af70b346ad0" class="bulleted-list"><li style="list-style-type:circle">구매자의 신용 카드에서 금액을 공제하기 위해 타사 PSP를 호출하면 판매자 대신 전자상거래 웹사이트의 은행 계좌에 이체가 이루어짐</li></ul><p id="6b637195-9bd9-4d9d-a004-2762360ca31b" class="">⇒ 사용자의 결제를 처리하는 중에는 판매자의 은행 계좌가 아닌 구매자의 카드 정보만 필요함</p></li></ul><ul id="e373cb4a-97b7-4593-a3c9-5179d95686db" class="bulleted-list"><li style="list-style-type:disc">payment_order_status<ul id="f934058a-a398-40ee-a833-ae43c5828665" class="bulleted-list"><li style="list-style-type:circle">결제 주문의 실행 상태를 유지하는 열거 자료형</li></ul><ul id="22e7b133-74c1-485e-aff8-945682caf05c" class="bulleted-list"><li style="list-style-type:circle">NOT_STARTED</li></ul><ul id="8c8d231c-23c6-46bb-9293-9fdfe16ecd94" class="bulleted-list"><li style="list-style-type:circle">EXCUTING</li></ul><ul id="9849f850-cac8-4386-b3a8-7e8c8120b6d1" class="bulleted-list"><li style="list-style-type:circle">SUCCES</li></ul><ul id="bba673aa-2a6f-440c-a54f-25842158f92c" class="bulleted-list"><li style="list-style-type:circle">FAILED</li></ul></li></ul></div></div><p id="325239c0-b58d-41e0-8894-ad3545d75f1d" class="">
+</p><h2 id="01656c21-775d-4d71-92c5-934e81157acf" class="">복식부기 원장 시스템</h2><ul id="b9ce4479-1734-4e65-be57-ea4e97818faf" class="bulleted-list"><li style="list-style-type:disc">원장 시스템에는 복식부기라는 아주 중요한 설계 원칙이 존재함</li></ul><ul id="75a9a00d-b8d5-4df5-87c5-6004613249ff" class="bulleted-list"><li style="list-style-type:disc">모든 결제 시스템에 필수 요소</li></ul><ul id="1dd2d79d-cffc-45ed-9e78-488afdf17bc7" class="bulleted-list"><li style="list-style-type:disc">정확한 기록을 남기는 데 핵심적인 역할</li></ul><ul id="1ff27a9e-4a87-482f-b277-3033d8da2a8b" class="bulleted-list"><li style="list-style-type:disc">모든 결제 거래를 두 개의 별도 원장 계좌에 같은 금액으로 기록함</li></ul><ul id="3152a0fe-cebe-44d4-8e0b-82fb23db4b00" class="bulleted-list"><li style="list-style-type:disc">한 계좌에서는 차감이, 다른 계좌에서는 입금이 이루어짐</li></ul><ul id="af626e38-ca09-4a93-9dd0-b09158d4daf6" class="bulleted-list"><li style="list-style-type:disc">모든 거래 항목의 합은 0이어야 함</li></ul><ul id="fda65fb6-ff42-4cc6-8991-3a00a2599e57" class="bulleted-list"><li style="list-style-type:disc">자금의 흐름을 시작부터 끝까지 추적할 수 있음</li></ul><ul id="7b24454e-5a39-43de-b982-6fd5be5f1131" class="bulleted-list"><li style="list-style-type:disc">결제 주기 전반에 걸쳐 일관성을 보장</li></ul><p id="b0710d6d-b9e7-4e18-80ff-ba4a02eddea8" class="">
+</p><h2 id="6c2affbd-ff59-4768-8c49-3344e7a384af" class="">외부 결제 페이지</h2><ul id="44537158-fa28-40b3-a3cb-ded8ddedad72" class="bulleted-list"><li style="list-style-type:disc">대부분의 기업은 신용 카드 정보를 내부에 저장하지 않음<ul id="b9bc3553-60f6-4854-b57c-e7d65ceb4653" class="bulleted-list"><li style="list-style-type:circle">미국의 PCI DSS 같은 복잡한 규정을 준수해야 하기. 때문</li></ul></li></ul><ul id="aba99ec1-d5f8-46f3-9875-bccce092676e" class="bulleted-list"><li style="list-style-type:disc">PSP에서 제공하는 외부 신용 카드 페이지를 사용</li></ul><ul id="3ed31b11-439e-4047-870e-ecd9d16665a8" class="bulleted-list"><li style="list-style-type:disc">중요한 것은 <mark class="highlight-red">PSP가 제공하는 외부 결제 페이지가 직접 고객 카드 정보를 수집</mark>한다는 것</li></ul><p id="e5049be2-46a0-4fed-ba98-cfbb0cee10f6" class="">
+</p><h2 id="191e1415-6dc4-49e7-b464-655648a59274" class="">대금 정산 흐름</h2><ul id="ce17eca3-d0e4-4048-89a0-8cfb5c55e0c8" class="bulleted-list"><li style="list-style-type:disc">대금 수신 흐름과 거의 유사함</li></ul><ul id="ad6efade-4366-4132-9832-fc2413bc260b" class="bulleted-list"><li style="list-style-type:disc">PSP를 사용하여 구매자의 신용 카드에서 전자상거래 웹사이트 은행 계좌로 돈을 이체하는 대신</li></ul><ul id="1812a34c-85f8-4aa2-9e22-891b5cefa2a9" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-red">타사 정산 서비스를 사용하여 전자 상거래 웹사이트 은행 계좌에서 판매자 은행 계좌로 돈을 이체</mark>한다는 점만 다름</li></ul><p id="dd32d2f8-5277-4a48-a201-114f9af176bf" class="">
+</p><h1 id="c0a21593-0713-4f70-bfad-864db5b820c2" class="">상세 설계</h1><h2 id="c1d6209c-fbe6-435d-8531-39372a257c50" class="">PSP 연동</h2><p id="04a8cc1e-0e48-413b-82a1-66274e38eede" class=""><strong>PSP와 연동하는 방법</strong></p><ul id="9420f7bd-7d51-4fff-9680-2c23053ffbc2" class="bulleted-list"><li style="list-style-type:disc">회사가 민감한 결제 정보를 안전하게 저장할 수 있는 경우<ul id="ced1e0ab-61a1-4569-a324-ebc88b467ce7" class="bulleted-list"><li style="list-style-type:circle">결제 웹페이지를 개발하고 민감한 결제 정보를 수집</li></ul><ul id="fa8b0709-d3e0-4d12-a5e9-fae6cb18f36f" class="bulleted-list"><li style="list-style-type:circle">PSP는 은행 연결, 다양한 카드 유형을 지원하는 역할</li></ul></li></ul><ul id="5400a51f-0549-429c-8b9c-76636e06ea4b" class="bulleted-list"><li style="list-style-type:disc">회사가 민감한 결제 정보를 저장하지 않는 경우<ul id="88632743-e25e-4281-96cc-e2d3adde7660" class="bulleted-list"><li style="list-style-type:circle">PSP는 카드 결제 세부 정보를 수집하여 PSP에 안전하게 저장할 수 있도록 외부 결제 페이지를 제공</li></ul><ul id="93eef3ad-eca0-4844-8d5c-cb6106003f30" class="bulleted-list"><li style="list-style-type:circle">대부분의 기업이 이 방법을 선택</li></ul></li></ul><p id="ea09a504-b7a3-4b8b-b1d4-2fb1f3044b09" class="">
+</p><p id="b69cb7dc-40ca-4c44-8915-f3e0b4afcf12" class=""><strong>외부 결제 페이지 작동 방식</strong></p><ol type="1" id="6bfe0342-818a-4443-a6de-a78ffad381c5" class="numbered-list" start="1"><li>사용자가 클라이언트 브라우저에서 결제를 요청하면 클라이언트는 결제 주문 정보를 담아 결제 서비스 호출</li></ol><ol type="1" id="cdf25aef-7d8d-47ac-872c-1aba8d6fdeab" class="numbered-list" start="2"><li>결제 주문 정보를 수신한 결제 서비스는 결제 등록 요청을 PSP로 전송<ul id="54499345-224a-459d-a016-34dbea9c72ba" class="bulleted-list"><li style="list-style-type:disc">결제 금액, 통화, 결제 요청 만료일, 리디렉션 URL</li></ul><ul id="bf77eab4-f0b1-4992-9aae-a6e34267c241" class="bulleted-list"><li style="list-style-type:disc">결제 주문이 정확이 한 번만 등록될 수 있도록 비중복 난수 UUID 필드를 둠</li></ul></li></ol><ol type="1" id="367c6199-fbea-4106-ad15-68e4eeb010b8" class="numbered-list" start="3"><li>PSP는 결제 서비스에 토큰을 반환<ul id="e64c8533-e35d-4e60-9551-c936b4ddaf94" class="bulleted-list"><li style="list-style-type:disc">토큰은 등록된 결제 요청을 유일하게 식별하는 PSP가 발급한 UUID</li></ul><ul id="b4ef5d8d-7bde-45dc-973f-8fd8ec91751a" class="bulleted-list"><li style="list-style-type:disc">토큰을 사용하여 결제 등록 및 실행 상태 등을 확인 가능</li></ul></li></ol><ol type="1" id="c491db2b-0a21-4dc9-8f27-ce7c34a6cc6b" class="numbered-list" start="4"><li>결제 서비스는 PSP가 제공하는 외부 결제 페이지를 호출하기 전에 토큰을 데이터베이스에 저장</li></ol><ol type="1" id="7fd3409d-0ec1-49b6-a16b-b8c31519904b" class="numbered-list" start="5"><li>클라이언트는 PSP가 제공하는 외부 결제 페이지를 표시<ul id="6a5b37c4-314d-4dc6-a1b2-f5f0fe25d744" class="bulleted-list"><li style="list-style-type:disc">모바일 애플리케이션은 일반적으로 SDK를 연동</li></ul><ul id="a8db1364-9149-4256-8387-ca3f67ab6e1e" class="bulleted-list"><li style="list-style-type:disc">웹 애플리케이션에서 사용하는 자바스크립트 라이브러리에는 결제 UI를 표시, 민감한 결제 정보 수집, 결제를 완료하는 등의 작업을 위해 PSP를 직접 호출하는 로직이 포함되어 있음</li></ul><ul id="dc4716ee-1b94-4cb2-ab0e-630ebf3f263b" class="bulleted-list"><li style="list-style-type:disc">민감한 정보는 우리 시스템으로 절대 넘어오지 않음</li></ul><ul id="5b2d5577-18fd-41db-86e6-ace4638d53f9" class="bulleted-list"><li style="list-style-type:disc">필요한 정보<ul id="173e95ea-28d6-4403-affc-1bf80fbd48b6" class="bulleted-list"><li style="list-style-type:circle">PSP에서 받은 토큰</li></ul><ul id="7fcd74f9-4d5a-4fbe-81ef-a21bde886877" class="bulleted-list"><li style="list-style-type:circle">리디렉션 URL</li></ul></li></ul></li></ol><ol type="1" id="89b795c9-5047-4f68-8bf3-019801739a38" class="numbered-list" start="6"><li>사용자는 신용 카드 번호, 쇼유자 이름, 카드 유효기간 등의 결제 세부 정보를 PSP의 웹 페이지에 입력한 다음 결제 요청</li></ol><ol type="1" id="06d237e2-37bc-4166-8e9b-505ea86b4259" class="numbered-list" start="7"><li>PSP가 결제 처리를 시작하고, 결제 상태를 반환</li></ol><ol type="1" id="012cb380-61f0-406b-8f5b-5653cae8ccfb" class="numbered-list" start="8"><li>사용자는 리디렉션 URL이 가리키는 웹 페이지로 보내짐</li></ol><ol type="1" id="5573168e-6749-495d-99eb-b4140728c18f" class="numbered-list" start="9"><li>비동기적으로 PSP는 웹훅을 통해 결제 상태와 함께 결제 서비스를 호출<ul id="3d846bc7-7665-4f3c-9ed8-47a2a10dee70" class="bulleted-list"><li style="list-style-type:disc">웹훅: 결제 시스템 측에서 PSP를 처음 설정할 때 등록한 URL</li></ul><ul id="d5c8d48e-891e-4340-a220-ce9e06544a8d" class="bulleted-list"><li style="list-style-type:disc">결제 시스템이 웹훅을 통해 결제 이벤트를 다시 수신하면 결제 상태를 추출하여 결제 주문 데이터베이스 테이블의 payment_order_status 필드를 최신 상태로 업데이트</li></ul></li></ol><p id="6a1dcb95-2bb1-4c95-b9ac-b0096b8366f0" class="">
+</p><p id="2b5d8b04-41dc-4d3c-adde-920d950f116d" class="">네트워크 등의 이유로 중간에 실패하는 경우, 체계적으로 처리할 수 있는 방법</p><p id="aae3645d-dc0f-40ad-8ef8-2b9e16a62925" class="">⇒ <mark class="highlight-red">조정</mark></p><p id="61453d2e-2803-4951-b9b6-e5a82cb84158" class="">
+</p><h2 id="cc208e59-09af-4e01-8d65-b1c65e36b569" class="">조정</h2><ul id="869d5cc4-6893-4930-bc6c-4ed1c450357b" class="bulleted-list"><li style="list-style-type:disc">정확성을 보장하는 방법</li></ul><ul id="37f89fa0-b918-4c8e-b46c-e49f289a27f4" class="bulleted-list"><li style="list-style-type:disc">관련 서비스 간의 상태를 주기적으로 비교하여 일치하는지 확인</li></ul><ul id="4b8c3da1-7c8b-4dfb-bc61-814b130e69fd" class="bulleted-list"><li style="list-style-type:disc">일반적으로 결제 시스템의 마지막 방어선</li></ul><ul id="e518afa7-ffb9-43ba-9d91-b81b27e9bf36" class="bulleted-list"><li style="list-style-type:disc">매일 밤 PSP나 은행은 고객에게 은행 계좌의 잔액과 하루 동안 해당 계좌에서 발생한 모든 거래 내역이 기재되어 있는 정산 파일을 보냄</li></ul><ul id="b159adcd-b884-408c-af12-c060b992da64" class="bulleted-list"><li style="list-style-type:disc">조정 시스템은 정산 파일의 세부 정보를 읽어 원장 시스템과 비교함</li></ul><ul id="68864a48-3589-4bb0-bc19-531b0842c149" class="bulleted-list"><li style="list-style-type:disc">결제 시스템의 내부 일관성을 확인할 때도 사용됨<ul id="2dbcd047-61c8-4533-b9b3-39a2d761d1c7" class="bulleted-list"><li style="list-style-type:circle">원장과 지갑의 상태가 같은지</li></ul></li></ul><ul id="c2a14ef9-f085-435e-8fd1-b89cb5b3e7d2" class="bulleted-list"><li style="list-style-type:disc">조정 중에 발견된 차이는 일반적으로 재무팀에 의뢰하여 수동으로 수정</li></ul><p id="e0ce5d04-da92-4607-923d-0deeb94e639f" class="">
+</p><p id="ad2a19b1-dd79-4799-bf3b-605eb13fb274" class=""><strong>발생 가능한 불일치 문제와 해결 방안</strong></p><ul id="b4c472a7-da7c-43d5-a8db-e116a3db30ad" class="bulleted-list"><li style="list-style-type:disc">어떤 유형의 문제인지 알고 있음 + 문제 해결 절차를 자동화할 수 있음<ul id="3ad2f661-d203-4920-a3c6-5515ed114711" class="bulleted-list"><li style="list-style-type:circle">엔지니어는 발생한 불일치 문제의 분류와 조정 작업을 모두 자동화 가능</li></ul></li></ul><ul id="9a415bd6-470a-4624-9368-9189386bc320" class="bulleted-list"><li style="list-style-type:disc">어떤 유형의 문제인지 알 수 있음 + 문제 해결 절차를 자동화할 수 없음<ul id="8a141ae5-27bf-4a71-aab1-06fad6a4e2b6" class="bulleted-list"><li style="list-style-type:circle">발생한 불일치 문제는 작업 대기열에 넣고 재무팀에서 수동으로 수정</li></ul></li></ul><ul id="50ba1af0-de23-42e6-bafa-16223403c961" class="bulleted-list"><li style="list-style-type:disc">분류할 수 없는 유형의 문제<ul id="857b0561-de2b-4e73-9e92-166084bc63ed" class="bulleted-list"><li style="list-style-type:circle">불일치가 어떻게 발생하였는지 알지 못하는 경우</li></ul><ul id="cd3f7729-48c0-4f34-b348-95079024c7a6" class="bulleted-list"><li style="list-style-type:circle">특별 작업 대기열에 넣고 재무팀에서 조사하도록 함</li></ul></li></ul><p id="d3781b6c-24d0-42a3-857f-c914307ccb25" class="">
+</p><h2 id="c6823938-c324-4d43-ad48-8eac19c14eb5" class="">결제 지연 처리</h2><p id="27dc8e12-4077-4b28-a113-b759f7043095" class=""><strong>결제 처리가 지연되는 경우</strong></p><ul id="d5209de1-2e15-4e5c-a0c1-feeaecd17321" class="bulleted-list"><li style="list-style-type:disc">PSP가 해당 결제 요청의 위험성이 높다고 보고 담당자가 검토를 요구하는 경우</li></ul><ul id="d278ef4f-de7a-4502-ad68-5846b1848956" class="bulleted-list"><li style="list-style-type:disc">신용 카드사가 구매 확인 용도록 카드 소유자의 추가 정보를 요청하는 3D 보안 인증 같은 추가 보호 장치를 요구하는 경우</li></ul><p id="3ddcf532-4121-4975-a026-9a0a56856ef3" class="">
+</p><p id="9dd8a327-733c-4fa4-8af2-2c2c0366b64d" class=""><strong>결제 처리 지연을 처리하는 방법</strong></p><ul id="6beb01e1-42a6-4554-8d24-79de2513c851" class="bulleted-list"><li style="list-style-type:disc">PSP는 결제가 대기 상태임을 알리는 상태 정보를 클라이언트에 반환하고, 클라이언트는 이를 사용자에게 표시함과 동시에 고객이 현재 결제 상태를 확인할 수 있는 페이지 제공</li></ul><ul id="2a72a0cc-3b9d-4026-ae46-85b7fcb50469" class="bulleted-list"><li style="list-style-type:disc">PSP는 우리 회사를 대신하여 대기 중인 결제의 진행 상황을 추적하고, 상태가 바뀌면 PSP에 등록된 웹훅을 통해 결제 서비스에 알림<ul id="681cdbee-2544-4e0a-872c-b976b1508ff2" class="bulleted-list"><li style="list-style-type:circle">결제 서비스에 결제 상태 변경을 알리는 대신, 결제 서비스로 하여금 대기 중인 결제 요청의 상태를 주기적으로 확인하도록 하기도 함</li></ul></li></ul><p id="5cfe9c43-9762-4c70-8f9c-5cb25a2d51d0" class="">
+</p><h2 id="904c8240-68eb-4cce-b645-aa03524e5a70" class="">내부 서비스 간 통신</h2><ul id="d2d73a6d-3b7f-42f9-bc20-b7553678a0fd" class="bulleted-list"><li style="list-style-type:disc">동기식 통신<ul id="eedf2359-1402-4ee0-96c3-cc5e6c571a7e" class="bulleted-list"><li style="list-style-type:circle">소규모 시스템에서는 잘 작동하지만 규모가 커지면 단점이 분명해짐</li></ul><ul id="287f37b8-d501-483f-806a-9d14f4c7eb8f" class="bulleted-list"><li style="list-style-type:circle">한 요청에 응답을 만드는 처리 주기는 관련된 서비스가 많을 수록 질어짐</li></ul><ul id="0cc14f09-d703-4ff9-b8b2-fc1be52642fa" class="bulleted-list"><li style="list-style-type:circle">성능 저하<ul id="5f3191b8-76b4-4ffe-98e8-c9b034298b12" class="bulleted-list"><li style="list-style-type:square">요청 처리에 관계된 서비스 가운데 하나에 발생한 성능 문제가 전체 시스템의 성능에 영향을 끼침</li></ul></li></ul><ul id="3bc5c69e-bd30-4676-ad1e-c3d1139d51d9" class="bulleted-list"><li style="list-style-type:circle">장애 격리 곤란<ul id="f74be1f0-577e-47e8-81cc-812137e7b275" class="bulleted-list"><li style="list-style-type:square">PSP 등의 서비스에 장애가 발생하면 클라이언트는 더 이상 응답을 받지 못함</li></ul></li></ul><ul id="b40b87e2-c61a-41e7-b596-9f85fa69c45e" class="bulleted-list"><li style="list-style-type:circle">높은 결합도<ul id="d0a59d9d-73c0-4dc0-974f-fa6546f92e86" class="bulleted-list"><li style="list-style-type:square">요청 발신자는 수신자를 알아야만 함</li></ul></li></ul><ul id="2c65771a-2997-4215-8bed-22a8286bea5c" class="bulleted-list"><li style="list-style-type:circle">낮은 확장성<ul id="129660d4-5d83-413d-9078-2ddee7f36a81" class="bulleted-list"><li style="list-style-type:square">큐를 버퍼로 사용하지 않고서는 갑작스러운 트래픽 증가에 대응할 수 있도록 시스템을 확장하기 어려움</li></ul></li></ul></li></ul><ul id="fcc52098-1073-44d0-bcab-fbdf4e50ddf3" class="bulleted-list"><li style="list-style-type:disc">비동기 통신<ul id="7db22672-d22d-4187-a0c5-2b98cd2288ef" class="bulleted-list"><li style="list-style-type:circle">단일 수신자<ul id="117db430-e729-47d7-a334-f30e0098e6b5" class="bulleted-list"><li style="list-style-type:square">각 요청은 하나의 수진자 또는 서비스가 처리</li></ul><ul id="d2bac5a0-0433-4883-af4d-862d2b7643ac" class="bulleted-list"><li style="list-style-type:square">일반적으로 공유 메시지 큐를 사용하여 구현</li></ul><ul id="2e84e836-1ee2-4ba9-a120-1e712080e4a7" class="bulleted-list"><li style="list-style-type:square">큐에는 복수에 구독자가 있을 수 있으나 처리된 큐에서 바로 제거됨</li></ul></li></ul><ul id="5f0d0df3-0a59-46f4-aaf5-4573e7acf8c9" class="bulleted-list"><li style="list-style-type:circle">다중 수신자<ul id="bc31e9d3-5979-45bf-b257-2db0ad855262" class="bulleted-list"><li style="list-style-type:square">각 요청은 여러 수신자 또는 서버가 처리</li></ul><ul id="2ae83420-4119-4759-b3f5-c23745a56be1" class="bulleted-list"><li style="list-style-type:square">카프카는 이런 시나리오를 잘 처리함<ul id="a23f12f2-6994-463c-a12e-e88f6d9ce3d0" class="bulleted-list"><li style="list-style-type:disc">소비자가 수신한 메시지는 카프카에서 바로 사라지지 않음</li></ul><ul id="7a72da17-3c8e-4353-af19-bd00a46ca2ef" class="bulleted-list"><li style="list-style-type:disc">동일한 메시지를 여러 서비스가 받아 처리할 수 있음</li></ul></li></ul><ul id="7df1e686-15ff-4488-8293-de9557b649be" class="bulleted-list"><li style="list-style-type:square">결제 시스템 구현에 적합<ul id="c08eb494-9e6a-4f4d-885c-20564954f2e9" class="bulleted-list"><li style="list-style-type:disc">하나의 요청이 푸시 알림 전송, 재무 보고 업데이트, 분석 결과 업데이트 등의 다양한 용도에 쓰일 수 있음</li></ul></li></ul></li></ul></li></ul><p id="8f151d64-2763-4022-a4d9-63fda45964a0" class="">
+</p><h2 id="934e7edd-acb8-4602-a0a1-92a394ee28ea" class="">결제 실패 처리</h2><p id="51d9423c-7928-4981-abf3-e10ebf324243" class=""><strong>결제 상태 추적</strong></p><ul id="004e9a65-7a42-4934-b098-b7a6947b6adf" class="bulleted-list"><li style="list-style-type:disc">결제 주기의 모든 단계에서 결제 상태를 정확하게 유지하는 것은 매우 중요</li></ul><ul id="abf112ed-f465-4e3a-8a69-7b8dab92b1c8" class="bulleted-list"><li style="list-style-type:disc">실패가 일어날 때마다 결제 거래의 현재 상태를 파악하고 재시도 또는 환불이 필요한지 여부를 결정</li></ul><ul id="b866c967-7399-405e-adab-80f7f3ef6fda" class="bulleted-list"><li style="list-style-type:disc">결제 상태는 데이터 추가만 가능한 데이터베이스 테이블에 저장</li></ul><p id="39e12b39-f9f4-4fb3-9d14-a7387dce78e5" class="">
+</p><p id="d5af6e85-631a-47aa-9b7e-288cbc531761" class=""><strong>재시도 큐 및 실패 메시지 큐</strong></p><ul id="41ccbb21-a803-4d41-b43c-b5953f5752b5" class="bulleted-list"><li style="list-style-type:disc">재시도 큐<ul id="ab67842d-1718-4c5c-b72f-533534253435" class="bulleted-list"><li style="list-style-type:circle">일시적 오류 같은 재시도 가능 오류</li></ul></li></ul><ul id="95112573-b427-4dd1-854f-fedd26517ada" class="bulleted-list"><li style="list-style-type:disc">실패 메시지 큐<ul id="cda082fa-4078-4f7e-88ff-f3c5c7cbad7a" class="bulleted-list"><li style="list-style-type:circle">반복적으로 처리에 실패한 메시지</li></ul><ul id="65586fc4-f8f7-45ff-9984-e702daafda27" class="bulleted-list"><li style="list-style-type:circle">문제가 있는 메시지를 디버깅하고 격리하여 성공적으로 처리되지 않은 이유를 파악하기 위한 검사에 유용</li></ul></li></ul><p id="68e7dfb5-2d75-453b-a58c-205fb48502e9" class="">
+</p><ol type="1" id="57c5b9ae-6965-444d-9d7d-ffb3eff6e940" class="numbered-list" start="1"><li>재시도가 가능한지 확인<ol type="a" id="47ded00b-4514-47c1-b52f-bbcbcbc907ac" class="numbered-list" start="1"><li>재시도 가능 → 재시도 큐</li></ol><ol type="a" id="3119d678-28ab-43e4-9cd6-a41682a1b9d0" class="numbered-list" start="2"><li>재시도 불가능 → 오류 내역을 데이터베이스에 저장</li></ol></li></ol><ol type="1" id="86abfcb2-0a2c-4b49-b1da-6ac4aadd679e" class="numbered-list" start="2"><li>결제 시스템은 재시도 큐에 쌓인 이벤트를 읽어 실패한 결제 재시도</li></ol><ol type="1" id="ef00d494-8e5a-4ac7-8ccd-cdd661495e23" class="numbered-list" start="3"><li>결제 거래가 다시 실패하는 경우<ol type="a" id="2a77ec9d-f4d5-45ea-8a6e-daacac9b1b26" class="numbered-list" start="1"><li>재시도 횟수가 임계값 이내 → 다시 재시도 큐</li></ol><ol type="a" id="7c4e82ee-8d52-4c9d-b365-de68f341a92a" class="numbered-list" start="2"><li>재시도 횟수가 임계값 이상 → 실패 메시지 큐</li></ol></li></ol><p id="ef61ab37-8b03-4ae1-a034-4b2f23bf4308" class="">
+</p><h2 id="8c96faab-1711-46ad-8679-e6414de9c771" class="">‘정확히 한 번’ 전달</h2><ul id="b67e2202-bd6b-412c-a037-463e334524f3" class="bulleted-list"><li style="list-style-type:disc">결제 시스템에 발생 가능한 가장 심각한 문제 중 하나는 고객에게 이중으로 청구하는 것</li></ul><ul id="b43c4014-b322-4176-8b02-a9a13f3d9456" class="bulleted-list"><li style="list-style-type:disc">결제 주문이 정확히 한 번만 실행되도록 설계하는 것이 중요</li></ul><ul id="ca47f98b-e729-44c7-b6d8-a0c4c6163d94" class="bulleted-list"><li style="list-style-type:disc">정확히 한 번만 실행되는 요건<ul id="9ca62464-efd0-4cf1-b4d5-f75804e7929b" class="bulleted-list"><li style="list-style-type:circle">최소 한 번</li></ul><ul id="b4bda41f-1a67-4aba-af82-126da17df59e" class="bulleted-list"><li style="list-style-type:circle">최대 한 번</li></ul></li></ul><p id="638d712b-4e07-4969-931d-7fe524a562a2" class="">
+</p><p id="3304eb45-0d20-4683-8482-f5b2846519fb" class=""><strong>재시도</strong></p><ul id="9d04fd63-75c7-4161-8353-d8b0d6799eb9" class="bulleted-list"><li style="list-style-type:disc">재시도 메커니즘을 활용하면 최소 한 번은 실행되도록 보장 가능</li></ul><ul id="bda90143-55e3-4341-9100-b45d84f3c2e6" class="bulleted-list"><li style="list-style-type:disc">얼마나 간격을 두고 재시도할지 정하는 것이 중요<ul id="d106037f-43b3-4339-a88a-f69b40c99b63" class="bulleted-list"><li style="list-style-type:circle">즉시 재시도</li></ul><ul id="cf7db6ba-9ee7-429e-a257-6b02842470c9" class="bulleted-list"><li style="list-style-type:circle">고정 간격<ul id="0f7897df-fb65-43c3-8a94-7f740273da95" class="bulleted-list"><li style="list-style-type:square">재시도 전에 일정 시간 기다림</li></ul></li></ul><ul id="45379a7b-4204-4331-8fc8-52123693cdd2" class="bulleted-list"><li style="list-style-type:circle">증분 간격<ul id="16e40c3e-95af-4a1a-98f7-d7c9615dc5e5" class="bulleted-list"><li style="list-style-type:square">재시도 전에 기다리는 시간을 특정한 양만큼 점진적으로 늘려가는 방법</li></ul></li></ul><ul id="c7a58264-d69d-4165-bb96-0d875f88646b" class="bulleted-list"><li style="list-style-type:circle">지수적 백오프<ul id="b6291f61-2df8-483e-ab91-5dbad11cd694" class="bulleted-list"><li style="list-style-type:square">재시도 전에 기다리는 시간을 직전 재시도 대비 두 배씩 늘려가는 방법</li></ul></li></ul><ul id="bc48977a-eea9-48dd-8dbe-1feaf190e89a" class="bulleted-list"><li style="list-style-type:circle">취소<ul id="28b55873-5c5a-4451-8d9c-745aff89609b" class="bulleted-list"><li style="list-style-type:square">요청을 철회</li></ul><ul id="c15c0c57-1cb9-411e-9c01-edadd9aff9ae" class="bulleted-list"><li style="list-style-type:square">실패가 영구적이거나 재시도를 하더라도 성공 가능성이 낮은 경우</li></ul></li></ul></li></ul><ul id="033f9c3d-12b8-458f-8681-dac87d236c22" class="bulleted-list"><li style="list-style-type:disc">일반적으로 적용 가능한 지침<ul id="cbcf14bc-6287-4ef9-9fff-bf8c5ad5061e" class="bulleted-list"><li style="list-style-type:circle">네트워크 문제가 단시간 내에 해결될 것 같지 않다면 지수적 백오프를 사용하라</li></ul></li></ul><ul id="898f78a6-03b2-43c5-8fa5-215a30fc4f54" class="bulleted-list"><li style="list-style-type:disc">에러 코드를 반환할 때는 Retry-After 헤더를 같이 붙여 보내는 것이 바람직</li></ul><ul id="b9a5af02-b28d-4eaf-9896-11526c32f1d5" class="bulleted-list"><li style="list-style-type:disc">재시도 시 발생할 수 잇는 잠재적 문제는 이중 결제<ul id="48320f75-943a-4523-907e-38df16601bc2" class="bulleted-list"><li style="list-style-type:circle">결제 시스템이 외부 결제 페이지를 통해 PSP와 연동하는 환경에서 클라이언트가 결제 버튼을 중복 클릭</li></ul><ul id="b723e01e-3f78-4f14-ab07-87aae9a53e3f" class="bulleted-list"><li style="list-style-type:circle">PSP가 결제를 성공적으로 처리하였으나 네트워크 오류로 응답이 결제 시스템에 도달하지 못하여 사용자가 결제 버튼을 다시 클릭하거나 클라이언트가 결제를 다시 시도</li></ul><ul id="175cd666-d521-414a-ac69-0e85a07c1e52" class="bulleted-list"><li style="list-style-type:circle">이중 결제를 장지하려면 결제는 ‘최대 한 번’만 이루어져야 함<p id="649bcd74-2a86-46be-bc33-597831ec8a57" class="">⇒ <mark class="highlight-red">멱등성</mark></p></li></ul></li></ul><p id="81ea2b68-35e1-4b44-84af-1f2e46baf4b7" class="">
+</p><h2 id="0165d6b5-7f59-445a-8f73-03e490ff7cf8" class="">멱등성</h2><ul id="f72da008-da96-4d85-9c82-c2a5948b5a04" class="bulleted-list"><li style="list-style-type:disc">최대 한 번 실행을 보장하기 위한 핵심 개념</li></ul><ul id="017a27f9-3f97-454d-98da-a06efb4acfbc" class="bulleted-list"><li style="list-style-type:disc">API 관점에서 클라이언트가 같은 API 호출을 여러 번 반복해도 항상 동일한 결과가 나옴</li></ul><ul id="1a7bb7d5-236d-465b-8c86-287f65114fc7" class="bulleted-list"><li style="list-style-type:disc">클라이언트와 서버 간의 통신을 위해서는 일반적으로 클라이언트가 생성하고 일정 시간이 지나면 만료되는 고유한 값을 멱등키로 사용</li></ul><ul id="2e9a58c7-4b6a-4fc5-a830-d3018b9cdb63" class="bulleted-list"><li style="list-style-type:disc">결제 요청의 멱등성을 보장하기 위해서는 HTTP 헤더에 &lt;멱등키: 값&gt;의 형태로 멱등키 추가</li></ul><ul id="eb35cfc3-8752-435d-9d32-c0d4def9a385" class="bulleted-list"><li style="list-style-type:disc">시나리오<ul id="0a8f594f-8a0e-402a-a496-e371f942625e" class="bulleted-list"><li style="list-style-type:circle">결제 시스템이 외부 결제 페이지를 통해 PSP와 연동하는 환경에서 클라이언트가 결제 버튼을 중복 클릭<ul id="acc7ae97-ba3d-4532-a374-8cf356c8371c" class="bulleted-list"><li style="list-style-type:square">사용자가 결제를 클릭하면 멱등키가 HTTP 요청의 일부로 결제 시스템에 전송</li></ul><ul id="ad917621-a2e2-46ab-aabc-25d8ac7e8c2c" class="bulleted-list"><li style="list-style-type:square">일반적으로 전자상거래 웹사이트에서 명등키 == 결제가 이루어지기 직전의 장바구니 ID</li></ul><ul id="5b26e591-7c16-4dac-94b2-6e173b5090de" class="bulleted-list"><li style="list-style-type:square">결제 시스템은 두 번째 요청을 처리하려고 할 때 이미 이전에 받은 멱등키라면 이전 결제 요청의 가장 최근 상태를 반환</li></ul><ul id="1959d69e-2880-4f4a-91d7-0d465f114da7" class="bulleted-list"><li style="list-style-type:square">동일한 멱등키로 동시에 많은 요청을 받으면 결제 서비스는 그 가운데 하나만 처리하고 나머지는 Too Many Requests 상태 코드를 반환</li></ul><ul id="82fd205a-6e20-4b37-9f01-586fa61e8038" class="bulleted-list"><li style="list-style-type:square">데이터베이스의 고유 키 제약 조건을 활용하는 것도 한 가지 방안<ol type="1" id="0c819f4f-a390-4f97-b921-83602110c730" class="numbered-list" start="1"><li>결제 시스템은 결제 요청을 받으면 데이터베이스 테이블에 새 레코드를 넣으려 시도</li></ol><ol type="1" id="1a9d8087-b0a1-4013-9ac8-777b2bf1b712" class="numbered-list" start="2"><li>새 레코드 추가에 성공했다는 것은 이전에 처리한 적이 없는 결제 요청이라는 뜻</li></ol><ol type="1" id="4cd68199-7f8b-45a9-bdaf-1b4153bdf684" class="numbered-list" start="3"><li>새 레코드 추가에 실패했다는 것은 이전에 받은 적이 있는 결제 요청이라는 뜻 == 중복 요청</li></ol></li></ul></li></ul><ul id="ca0632c9-107d-4a23-a0a1-cf2b596e6ddc" class="bulleted-list"><li style="list-style-type:circle">PSP가 결제를 성공적으로 처리하였으나 네트워크 오류로 응답이 결제 시스템에 도달하지 못하여 사용자가 결제 버튼을 다시 클릭하거나 클라이언트가 결제를 다시 시도<ul id="7197766b-f147-49e8-8744-3291adf8f379" class="bulleted-list"><li style="list-style-type:square">사용자가 결제 버튼을 다시 누른다고 해도 결제 주문이 같기 때문에 PSP에 전송되는 토큰도 같음</li></ul><ul id="b5bd5390-ac37-4475-a9e5-bb8598ebd7b5" class="bulleted-list"><li style="list-style-type:square">이중 결제로 판단</li></ul></li></ul></li></ul><p id="64d88852-b510-469c-9329-427158bb1cc3" class="">
+</p><h2 id="9d66184a-5fbe-4197-9a7a-6c8f0bc03a62" class="">일관성</h2><ul id="f8a99372-b899-4d03-a1b9-7bf4b7da42fc" class="bulleted-list"><li style="list-style-type:disc">결제 실행 과정에서 상태 정보를 유지 관리하는 여러 서비스가 호출됨<ul id="45700501-8b8c-4411-b6ba-4022bdba3a82" class="bulleted-list"><li style="list-style-type:circle">결제 서비스는 비중복 난수, 토큰, 결제 주문, 실행 상태 등의 결제 관련 데이터를 유지 관리함</li></ul><ul id="392aee46-10c3-4717-b54f-e72ec9a65a77" class="bulleted-list"><li style="list-style-type:circle">원장은 모든 회계 데이터를 보관</li></ul><ul id="f3be2a19-ce9c-47d1-82b6-ccd4fe998f58" class="bulleted-list"><li style="list-style-type:circle">지갑은 판매자의 계정 잔액을 유지함</li></ul><ul id="7db8a2d1-0a73-4ddf-b960-afd93cfa8709" class="bulleted-list"><li style="list-style-type:circle">PSP는 결제 실행 상태를 유지함</li></ul><ul id="dd437f14-c8a0-4c2b-a188-a088bc9e70a5" class="bulleted-list"><li style="list-style-type:circle">데이터는 안정성을 높이기 위해 여러 데이터베이스 사본에 복제 될 수 있음</li></ul></li></ul><ul id="1845f82b-91e5-40bd-a4f2-452853ab8ee9" class="bulleted-list"><li style="list-style-type:disc">분산 환경에서는 서비스 간 통신 실패로 데이터 불일치가 발생할 수 있음</li></ul><ul id="131b2a62-8085-4d0c-9c17-dfd22c53ac63" class="bulleted-list"><li style="list-style-type:disc">내부 서비스 간의 데이터 일관성을 유지하려면 요청이 ‘정확히 한 번’ 처리되도록 보장하는 것이 중요</li></ul><ul id="f5e46678-410f-4db8-af71-61c6c3d4f0f7" class="bulleted-list"><li style="list-style-type:disc">내부 서비스와 외부 서비스 간의 데이터 일관성을 유지하기 위해 멱등성과 조정 프로세스를 활용<ul id="782864db-ae3b-4829-87de-ebf0a9c7e093" class="bulleted-list"><li style="list-style-type:circle">외부 서비스가 멱등성을 지원하는 경우에는 결제를 재시도할 때 같은 멱등키를 사용해야 함</li></ul><ul id="001930f9-0a90-4cbb-ba94-1da9ffc94a10" class="bulleted-list"><li style="list-style-type:circle">외부 서비스가 멱등성을 지원하더라고 항상 옳다고 가정할 수 없기 때문에 조정 절차를 생략할 수 없음</li></ul></li></ul><ul id="87aea23d-c819-4240-9e52-f2a9fb39da18" class="bulleted-list"><li style="list-style-type:disc">데이터를 다중화하는 경우에는 복제 지연으로 데이터 불일치가 발생할 수 있음<ul id="5134b254-22c5-43bc-9b4e-2bb45a1cd2b8" class="bulleted-list"><li style="list-style-type:circle">주 데이터베이스에서만 읽기와 쓰기 연산을 처리<ul id="d0ea904b-da2e-45f8-8031-e4065cea7f7a" class="bulleted-list"><li style="list-style-type:square">설정하기는 쉽지만 규모 확장성이 떨어짐</li></ul><ul id="26478df1-9215-4be4-b440-f25cdb3f1498" class="bulleted-list"><li style="list-style-type:square">사본은 데이터 안정성 보장에만 활용되고 트래픽은 처리하지 않아 자원이 낭비됨</li></ul></li></ul><ul id="2cdf2b3e-d11e-41ae-b97b-8827bf0a1948" class="bulleted-list"><li style="list-style-type:circle">모든 사본이 항상 동기화되도록 함</li></ul></li></ul><p id="17c56e11-5550-49f6-bf2e-8ac1f5f7b8ae" class="">
+</p><h2 id="17b30b9a-cd9f-4e74-bbc9-3db9e58d7713" class="">보안</h2><ul id="76369f04-5dba-4084-951a-b5d16a6936ef" class="bulleted-list"><li style="list-style-type:disc">요청/응답 도청<ul id="3fcd7845-05dc-4f70-b3e9-227c1500f477" class="bulleted-list"><li style="list-style-type:circle">HTTPS 사용</li></ul></li></ul><ul id="40fed302-8964-46bf-b748-870575903582" class="bulleted-list"><li style="list-style-type:disc">데이터 변조<ul id="f733ea88-c1f0-4a9c-b8fe-727346fdb8eb" class="bulleted-list"><li style="list-style-type:circle">암호화 및 무결성 강화 모니터링</li></ul></li></ul><ul id="d20f6a53-ff3d-41bb-bd68-0f232b501a5b" class="bulleted-list"><li style="list-style-type:disc">중간자 공격<ul id="fc4db57d-dfc0-44b4-a97a-1bec1105ba8c" class="bulleted-list"><li style="list-style-type:circle">인증서 고정과 함께 SSL 사용</li></ul></li></ul><ul id="13a4bce7-7d64-4e5f-b6da-35aa5b24a9ea" class="bulleted-list"><li style="list-style-type:disc">데이터 손실<ul id="e548c112-9f05-43d6-a73a-b149d613e94b" class="bulleted-list"><li style="list-style-type:circle">여러 지역에 걸쳐 데이터베이스 복제 및 스냅숏 생성</li></ul></li></ul><ul id="89d0d799-b88f-4ec3-9807-92ae0ee488dc" class="bulleted-list"><li style="list-style-type:disc">DDoS<ul id="a9140bb6-15fd-4860-8ed4-0d3558a22dfe" class="bulleted-list"><li style="list-style-type:circle">처리율 제한 및 방화벽</li></ul></li></ul><ul id="29babecd-97b3-4166-bdb3-78b84d8ed267" class="bulleted-list"><li style="list-style-type:disc">카드 도난<ul id="127c4e59-6e90-473e-86da-615264afdd6c" class="bulleted-list"><li style="list-style-type:circle">실제 카드 번호를 사용하는 대신 토큰을 저장하고 결제에 사용</li></ul></li></ul><ul id="944cc102-7796-4e6c-945d-3f760beb8eb7" class="bulleted-list"><li style="list-style-type:disc">PCI 규정 준수<ul id="2ad2cf84-df88-441e-87e1-18d80d857464" class="bulleted-list"><li style="list-style-type:circle">브랜드 신용 카드를 처리하는 조직을 위한 정보 보안 표준</li></ul></li></ul><ul id="1ecf6cf1-7efc-4bb8-a90d-050a4317894b" class="bulleted-list"><li style="list-style-type:disc">사기<ul id="a6a61d2f-8553-41e8-99a3-a67fc40b3877" class="bulleted-list"><li style="list-style-type:circle">주소 확인</li></ul><ul id="dadda5e7-6f84-4b77-9a96-f208f9d36cea" class="bulleted-list"><li style="list-style-type:circle">카드 확인번호</li></ul><ul id="dff71ced-ee22-4afd-b0f8-2e301c79fbdd" class="bulleted-list"><li style="list-style-type:circle">사용자 행동 분석</li></ul></li></ul><p id="b1443356-965b-4a6a-9867-dbef155a2bfa" class="">
+</p><h1 id="db0b13a3-db69-44fc-9c41-2a48aaab7cb0" class="">마무리</h1><p id="506ea905-d5bb-4a67-9aa8-493220a6f64f" class=""><strong>추가적으로 언급해도 좋을 이슈</strong></p><ul id="a3e4f835-9b48-42fc-a8ef-972a18ae787b" class="bulleted-list"><li style="list-style-type:disc">모니터링</li></ul><ul id="eeb86c7e-745c-41bb-b35f-6c8f4ec59151" class="bulleted-list"><li style="list-style-type:disc">경보</li></ul><ul id="808cfc43-9b66-4c33-a887-281ba30bd175" class="bulleted-list"><li style="list-style-type:disc">디버깅 도구</li></ul><ul id="06733cf3-3716-4cf8-a5aa-3611c5264a35" class="bulleted-list"><li style="list-style-type:disc">환율</li></ul><ul id="739c98c8-78ab-4407-a467-30b344b0d06a" class="bulleted-list"><li style="list-style-type:disc">지역</li></ul><ul id="b96b7408-e692-4bcf-bb54-11337f189871" class="bulleted-list"><li style="list-style-type:disc">현금 결제</li></ul><ul id="84a4d692-b0e3-4b60-920d-4f802cd5333b" class="bulleted-list"><li style="list-style-type:disc">구글/애플 페이 연동</li></ul></div></article></body></html>
